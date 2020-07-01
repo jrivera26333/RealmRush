@@ -2,31 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode][SelectionBase]
+[ExecuteInEditMode][SelectionBase][RequireComponent(typeof(Waypoint))]
 public class CubeEditor : MonoBehaviour
 {
-    [Range(1f, 20f)]
-    [SerializeField] float gridSize = 0;
+    Waypoint waypoint;
 
-    TextMesh textMesh;
-
-    private void Start()
+    private void Awake()
     {
-
+        waypoint = GetComponent<Waypoint>();
     }
 
     private void Update()
     {
-        Vector3 snapPos;
-        snapPos.x = Mathf.RoundToInt(transform.position.x / gridSize) * gridSize; //We get a decimal and then round to nearest int to snap
-        snapPos.z = Mathf.RoundToInt(transform.position.z / gridSize) * gridSize; //We get a decimal and then round to nearest int to snap
-        transform.position = new Vector3(snapPos.x, 0f, snapPos.z);
+        SnapToGrid();
+        UpdateLabel();
+    }
 
-        textMesh = GetComponentInChildren<TextMesh>();
-        string labelText = snapPos.x / gridSize + "," + snapPos.z / gridSize; //Since we have a rounded value we are getting the grid cord
+    private void SnapToGrid()
+    {
+        int gridSize = waypoint.GetGridSize();
+        transform.position = new Vector3(waypoint.GetGridPos().x * gridSize, 0f, waypoint.GetGridPos().y * gridSize);
+    }
+
+    private void UpdateLabel()
+    {
+        TextMesh textMesh = GetComponentInChildren<TextMesh>();
+        int gridSize = waypoint.GetGridSize();
+        string labelText = waypoint.GetGridPos().x + "," + waypoint.GetGridPos().y; //Since we have a rounded value we are getting the grid cord
         textMesh.text = labelText;
         gameObject.name = labelText;
-
-
     }
 }
