@@ -9,9 +9,19 @@ public class PathFinder : MonoBehaviour
     Dictionary<Vector2Int, Waypoint> grid = new Dictionary<Vector2Int, Waypoint>();
     Queue<Waypoint> queue = new Queue<Waypoint>();
     [SerializeField] Waypoint startWayPoint, endWayPoint;
+    List<Waypoint> path = new List<Waypoint>();
 
     bool isRunning = true;
     Waypoint searchCenter;
+
+    public List<Waypoint> GetPath()
+    {
+        LoadBlocks();
+        ColorStartAndEnd();
+        BreadthFirstSearch();
+        CreatePath();
+        return path;
+    }
 
     Vector2Int[] directions =
     {
@@ -21,16 +31,24 @@ public class PathFinder : MonoBehaviour
         Vector2Int.left
     };
 
-    // Start is called before the first frame update
-    void Start()
+    private void CreatePath()
     {
-        LoadBlocks();
-        ColorStartAndEnd();
-        PathFind();
-        //ExploreNeighbors();
+        path.Add(endWayPoint);
+        Waypoint previous = endWayPoint.exploredFrom;
+        while(previous != startWayPoint)
+        {
+            //Add intermediate waypoints
+            path.Add(previous); //This allows us to work backwards
+            previous = previous.exploredFrom;
+        }
+
+        path.Add(startWayPoint);
+        path.Reverse();
+        //Add start waypoint
+        //Reverse List
     }
 
-    private void PathFind()
+    private void BreadthFirstSearch()
     {
         queue.Enqueue(startWayPoint);
         while(queue.Count > 0 && isRunning)
@@ -62,13 +80,9 @@ public class PathFinder : MonoBehaviour
             Vector2Int neighborCoordinates = searchCenter.GetGridPos() + direction; //Get gridPos is moving by its size which is 10 once its hits that we are settings its point to 1, our direction is 1 based as well
             print("Exploring " + neighborCoordinates);
 
-            try
+            if(grid.ContainsKey(neighborCoordinates))
             {
                 QueueNewNeighbors(neighborCoordinates); //Checks if the Waypoint has been explored
-            }
-            catch
-            {
-
             }
         }
     }
@@ -77,7 +91,7 @@ public class PathFinder : MonoBehaviour
     {
         Waypoint neighbour = grid[neighborCoordinates];
 
-        if(neighbour.isExplored || queue.Contains(neighbour)) //We are checking if we have the Waypoint in the Que already
+        if(neighbour.isExplored || queue.Contains(neighbour)) //Different positions will recheck some values
         {
 
         }
