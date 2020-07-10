@@ -19,7 +19,7 @@ public class EnemyMovement : MonoBehaviour
         {
             Debug.Log("Visiting block: " + wayPoint.name);
             transform.position = wayPoint.transform.position;
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(2f);
         }
 
         Debug.Log("Ending Patrol!");
