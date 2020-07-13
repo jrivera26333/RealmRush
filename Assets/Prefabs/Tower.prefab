@@ -47,7 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectToPan: {fileID: 7533585493956676843}
   targetEnemy: {fileID: 0}
-  bullet: {fileID: 8477395149848720950}
+  attackRange: 30
+  projectileParticle: {fileID: 8752265884462871136}
 --- !u!1001 &5417015917801531001
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -157,9 +158,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40caeb5bbab81964b9d4069c0087fc95, type: 3}
---- !u!1 &8477395149848720950 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4506091945024049231, guid: 40caeb5bbab81964b9d4069c0087fc95,
+--- !u!198 &8752265884462871136 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3628582115959870489, guid: 40caeb5bbab81964b9d4069c0087fc95,
     type: 3}
   m_PrefabInstance: {fileID: 5417015917801531001}
   m_PrefabAsset: {fileID: 0}
