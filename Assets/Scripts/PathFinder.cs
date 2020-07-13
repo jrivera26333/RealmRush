@@ -58,15 +58,12 @@ public class PathFinder : MonoBehaviour
             HaltIfEndFound();
             ExploreNeighbors();
         }
-
-        print("Finished pathfinding?");
     }
 
     private void HaltIfEndFound()
     {
         if (searchCenter == endWayPoint)
         {
-            print("Searching from end node, therefore stopping!");
             isRunning = false;
         }
 
@@ -78,7 +75,6 @@ public class PathFinder : MonoBehaviour
         foreach(Vector2Int direction in directions)
         {
             Vector2Int neighborCoordinates = searchCenter.GetGridPos() + direction; //Get gridPos is moving by its size which is 10 once its hits that we are settings its point to 1, our direction is 1 based as well
-            print("Exploring " + neighborCoordinates);
 
             if(grid.ContainsKey(neighborCoordinates))
             {
