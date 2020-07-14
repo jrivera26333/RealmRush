@@ -28,7 +28,6 @@ public class PathFinder : MonoBehaviour
     private void CalculatePath()
     {
         LoadBlocks();
-        ColorStartAndEnd();
         BreadthFirstSearch();
         CreatePath();
     }
@@ -43,19 +42,27 @@ public class PathFinder : MonoBehaviour
 
     private void CreatePath()
     {
-        path.Add(endWayPoint);
+        SetAsPath(endWayPoint);
         Waypoint previous = endWayPoint.exploredFrom;
         while(previous != startWayPoint)
         {
-            //Add intermediate waypoints
-            path.Add(previous); //This allows us to work backwards
+            SetAsPath(previous);
             previous = previous.exploredFrom;
+            //This allows us to work backwards
+            //We are going backwards from the route and not allowing turrets to be placed
+
         }
 
-        path.Add(startWayPoint);
+        SetAsPath(startWayPoint);
         path.Reverse();
         //Add start waypoint
         //Reverse List
+    }
+
+    private void SetAsPath(Waypoint waypoint)
+    {
+        path.Add(waypoint);
+        waypoint.isPlaceable = false;
     }
 
     private void BreadthFirstSearch()
@@ -107,12 +114,6 @@ public class PathFinder : MonoBehaviour
             neighbour.exploredFrom = searchCenter;
         }
 
-    }
-
-    private void ColorStartAndEnd()
-    {
-        startWayPoint.SetTopColor(Color.cyan);
-        endWayPoint.SetTopColor(Color.blue);
     }
 
     private void LoadBlocks()

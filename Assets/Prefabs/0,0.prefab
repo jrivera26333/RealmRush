@@ -199,6 +199,7 @@ GameObject:
   - component: {fileID: 3173175937523256959}
   - component: {fileID: 1633600485}
   - component: {fileID: 3780118746801588657}
+  - component: {fileID: 4673316130486975645}
   m_Layer: 0
   m_Name: 0,0
   m_TagString: Untagged
@@ -247,7 +248,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   exploredFrom: {fileID: 0}
+  towerPrefab: {fileID: 7530650068449443255, guid: 49a2e1480dc35d741a7ff64cb49a4b75,
+    type: 3}
   isExplored: 0
+  isPlaceable: 1
+--- !u!65 &4673316130486975645
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6810345884451287759}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: -5, z: 0}
 --- !u!1001 &402570138062389094
 PrefabInstance:
   m_ObjectHideFlags: 0
