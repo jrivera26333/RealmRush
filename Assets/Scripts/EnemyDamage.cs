@@ -27,9 +27,12 @@ public class EnemyDamage : MonoBehaviour
 
     private void KillEnemy()
     {
-        var vfx = Instantiate(deathParticlePrefab, transform.position, Quaternion.identity);
+        var vfx = Instantiate(deathParticlePrefab, transform.position, Quaternion.identity); 
         vfx.Play();
-        Destroy(gameObject);
+
+        float destroyDelay = vfx.main.duration;
+        Destroy(vfx.gameObject, destroyDelay);
+        Destroy(gameObject, destroyDelay);
     }
 
     private void ProcessHit()
